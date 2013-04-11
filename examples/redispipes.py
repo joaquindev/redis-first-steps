@@ -7,7 +7,7 @@ TIMES = 1000000
 
 def with_pipelining():
     r = redis.Redis()
-    p = r.pipeline()
+    p = r.pipeline(transaction=False)
     map(p.incr, range(TIMES))
     p.execute()
 
