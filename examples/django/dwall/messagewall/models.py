@@ -111,15 +111,12 @@ class RMessage(object):
             ]
         )
 
-        # Result Style:
-        #   [
-        #      ['id', '25d8098c-524b-44a8-94ac-4e7255cb6958', 'message', 'message1', 'by', 'sender1', 'to', 'receiver1', 'date', '1365968231'],
-        #      ['id', '2107de9c-aa9f-44fc-a8ee-6bf9f57cba74', 'message', 'message0', 'by', 'sender0', 'to', 'receiver0', 'date', '1365968231']
-        #   ]
         for i in result:
-            msg = RMessage(i[3], i[5], i[7])
-            msg.id = i[1]
-            msg.date = int(i[9])
+            # Map fields to attrs
+            msg = RMessage(None, None, None)
+            for j in range(0, len(i), 2):
+                # Little hack(Dont want to set default attrs to the constructor)
+                setattr(msg, i[j], i[j+1])
             messages.append(msg)
 
         return messages
