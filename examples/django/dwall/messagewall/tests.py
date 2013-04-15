@@ -62,6 +62,18 @@ class RedisMessageTest(TestCase):
             self.assertEquals(sender.format(number_of_messages), i.by)
             self.assertEquals(receiver.format(number_of_messages), i.to)
 
+    def test_get_all_one(self):
+        m = RMessage("message", "sender", "receiver")
+        m.save()
+
+        messages = RMessage.get_all()
+
+        self.assertEquals(1, len(messages))
+
+        self.assertEquals("message", messages[0].message)
+        self.assertEquals("sender", messages[0].by)
+        self.assertEquals("receiver", messages[0].to)
+
     def test_get_all_limit(self):
         msg = "message{0}"
         sender = "sender{0}"

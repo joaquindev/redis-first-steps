@@ -88,6 +88,14 @@ class RMessage(object):
     @classmethod
     def get_all(cls, offset=0, count=-1):
 
+        # If we want all then always is -1 if not, then we need to set the start
+        #and finish for redis. But we ask for the start and how many elements
+        #we want to retrieve (included the start element) so, if we start in the
+        #10 and we want 3 then thsi would be 10, 11, 12 but if we set 13 to the
+        #upper limit in redis then we obtain 4 so we rest one
+        if count != -1:
+            count -= 1
+
         messages = []
 
         r = utils.get_redis_connection()
@@ -99,7 +107,7 @@ class RMessage(object):
             ],
             args=[
                 offset,
-                offset + count - 1  # We need the upper limit
+                offset + count
             ]
         )
 
@@ -108,7 +116,6 @@ class RMessage(object):
         #      ['id', '25d8098c-524b-44a8-94ac-4e7255cb6958', 'message', 'message1', 'by', 'sender1', 'to', 'receiver1', 'date', '1365968231'],
         #      ['id', '2107de9c-aa9f-44fc-a8ee-6bf9f57cba74', 'message', 'message0', 'by', 'sender0', 'to', 'receiver0', 'date', '1365968231']
         #   ]
-
         for i in result:
             msg = RMessage(i[3], i[5], i[7])
             msg.id = i[1]
