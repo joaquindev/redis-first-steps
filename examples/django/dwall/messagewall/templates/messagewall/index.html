@@ -3,8 +3,7 @@
 {% block content %}
 
 <div class="hero-unit">
-    <h1>DWall!</h1>
-    <h2>Number of messages: </h2>
-    <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+    <h2>Number of messages: {{ number_of_messages }}</h2>
+    <p><a href="{% url 'messagewall-show_messages' %}" class="btn btn-primary btn-large">Go to wall!</a></p>
 </div>
 {% endblock content %}

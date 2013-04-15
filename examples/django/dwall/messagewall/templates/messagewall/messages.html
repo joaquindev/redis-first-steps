@@ -1,0 +1,40 @@
+{% extends "messagewall/base.html" %}
+{%load datefilters%}
+
+{% block nav %}
+    <li><a href="{% url 'messagewall-index' %}">Home</a></li>
+    <li class="active"><a href="{% url 'messagewall-show_messages' %}">Wall</a></li>
+{% endblock nav %}
+
+{% block content %}
+    <form method="post" action="{% url 'messagewall-show_messages' %}">
+    {% csrf_token %}
+        <div class="row-fluid">
+            <div class="span9">
+                {{ form.message }}
+            </div>
+            <div class="span3">
+                <div class="row-fluid">
+                    <div class="row-fluid"><div class="span12">{{ form.by }}</div></div>
+                    <div class="row-fluid"><div class="span12">{{ form.to }}</div></div>
+                    <div class="row-fluid"><div class="span12">
+                        <button type="submit" class="btn btn-primary">Post it!</button>
+                    </div></div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <hr>
+    {% for i in rmessages %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="well">
+                <h4>To <strong>{{i.to}}</strong></h4>
+                <div>{{i.message}}</div>
+                <div>by <strong>{{i.by}}</strong> on {{i.date|from_unix_timestamp|date:"M j, Y"}}</div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock content %}
