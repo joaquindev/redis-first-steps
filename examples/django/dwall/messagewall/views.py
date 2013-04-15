@@ -1,10 +1,17 @@
+import json
+
 from django.shortcuts import (render_to_response,
-                             RequestContext)
-from django.http import Http404
+                              RequestContext)
 from django.contrib import messages
+from django.http import HttpResponse, Http404
+from django.template.defaultfilters import date as _date
 
 from messagewall.forms import MessageForm
 from messagewall.models import RMessage
+from messagewall.utils import unix_timestamp_to_datetime
+
+
+MESSAGES_PER_PAGE = 5
 
 
 def index(request):
@@ -38,7 +45,7 @@ def show_messages(request):
         form = MessageForm()
 
     # Get messages information
-    rmessages = RMessage.get_all()
+    rmessages = RMessage.get_all(0, MESSAGES_PER_PAGE)
     print(rmessages)
 
     context = {
@@ -49,3 +56,26 @@ def show_messages(request):
     return render_to_response('messagewall/messages.html',
                               context,
                               context_instance=RequestContext(request))
+
+
+def ajax_show_messages(request):
+    page = int(request.GET.get('page', 0))
+    offset = page * MESSAGES_PER_PAGE
+    count = MESSAGES_PER_PAGE
+
+    rmessages = RMessage.get_all(offset, count)
+
+    if len(rmessages) == 0:
+        raise Http404
+
+    return_data = []
+    for i in rmessages:
+        m = i.__dict__
+        m['date'] = _date(unix_timestamp_to_datetime(
+            m['date']),
+            "M j, Y \a\t H:i:s"
+        )
+        return_data.append(m)
+
+    return HttpResponse(json.dumps(return_data),
+                        mimetype="application/json")
