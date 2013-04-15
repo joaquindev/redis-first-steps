@@ -11,3 +11,7 @@ def get_redis_connection():
 
 def get_unix_timestamp_now():
     return calendar.timegm(datetime.datetime.utcnow().utctimetuple())
+
+
+def unix_timestamp_to_datetime(unix_date):
+    return datetime.datetime.fromtimestamp(int(unix_date))
