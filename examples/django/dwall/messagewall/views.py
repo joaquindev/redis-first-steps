@@ -46,7 +46,6 @@ def show_messages(request):
 
     # Get messages information
     rmessages = RMessage.get_all(0, MESSAGES_PER_PAGE)
-    print(rmessages)
 
     context = {
         "form": form,
