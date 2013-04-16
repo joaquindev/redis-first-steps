@@ -5,8 +5,6 @@ from os.path import abspath, dirname
 
 DJANGO_ROOT = dirname(dirname(abspath(__file__)))
 
-SITE_ROOT = dirname(DJANGO_ROOT)
-
 # Django settings for dwall project.
 
 DEBUG = True
@@ -78,7 +76,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    SITE_ROOT + "/static",
+    DJANGO_ROOT + "/static",
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
