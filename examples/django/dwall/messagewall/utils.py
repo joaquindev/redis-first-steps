@@ -6,7 +6,10 @@ import redis
 
 
 def get_redis_connection():
-    return redis.StrictRedis(connection_pool=settings.REDIS_POOL)
+    if settings.ENVIRONMENT == 'heroku':
+        return redis.from_url(settings.REDIS_URL)
+    else:
+        return redis.StrictRedis(connection_pool=settings.REDIS_POOL)
 
 
 def get_unix_timestamp_now():

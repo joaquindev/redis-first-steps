@@ -1,6 +1,7 @@
-from redis import ConnectionPool
-
+import os
 from os.path import abspath, dirname
+
+from redis import ConnectionPool
 
 
 DJANGO_ROOT = dirname(dirname(abspath(__file__)))
@@ -164,15 +165,25 @@ LOGGING = {
     }
 }
 
-# Redis settings
-REDIS_HOST = "127.0.0.1"
-REDIS_PORT = 6379
-REDIS_DB = 0
-REDIS_MAX_CONN = 5
-REDIS_MIN_CONN = 30
-REDIS_POOL = ConnectionPool(
-    host=REDIS_HOST,
-    port=REDIS_PORT,
-    db=REDIS_DB,
-    max_connections=REDIS_MAX_CONN
-)
+
+ENVIRONMENT = os.getenv('ENVIRONMENT', 'dev')
+
+if ENVIRONMENT == 'heroku':
+    # Redis settings
+    REDIS_URL = os.getenv('REDISCLOUD_URL', 'redis://localhost:6379')
+
+    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+else:
+    # Redis settings
+    REDIS_HOST = "127.0.0.1"
+    REDIS_PORT = 6379
+    REDIS_DB = 0
+    REDIS_MAX_CONN = 5
+    REDIS_MIN_CONN = 30
+    REDIS_POOL = ConnectionPool(
+        host=REDIS_HOST,
+        port=REDIS_PORT,
+        db=REDIS_DB,
+        max_connections=REDIS_MAX_CONN
+    )
