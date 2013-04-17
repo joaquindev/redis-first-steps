@@ -11,7 +11,8 @@ object ApplicationBuild extends Build {
     // Add your project dependencies here,
     javaCore,
     javaJdbc,
-    javaEbean
+    javaEbean,
+    "redis.clients" % "jedis" % "2.1.0"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
