@@ -1,5 +1,6 @@
 package models;
 
+import play.Play;
 import redis.clients.jedis.*;
 
 /**
@@ -16,6 +17,8 @@ public class Utils {
 
     static public JedisPool getRedisPool(){
         if (pool == null){
+            //TODO: Fix the test so they start a fake application when the test starts (needed to take the conf)
+            //String host = Play.application().configuration().getString("redis.host");
             Utils.pool = new JedisPool(new JedisPoolConfig(), "localhost");
 
         }
