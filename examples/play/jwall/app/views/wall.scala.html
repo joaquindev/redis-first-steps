@@ -1,0 +1,17 @@
+@(messages: List[RMessage])
+@import utils.DateUtils
+
+@main(js(), nav("wall")){
+    <hr>
+    <div id="messages">
+        @for(i <- messages) {
+            <div class="row-fluid">
+                <div class="span12 well">
+                    <h4>To <strong>@i.getTo</strong></h4>
+                    <div>@i.getMessage</div>
+                    <div>by <strong>@i.getBy</strong> on @DateUtils.unixToStr(i.getDate)</div>
+                </div>
+            </div>
+        }
+    </div>
+}

@@ -2,8 +2,10 @@ package controllers;
 
 import play.*;
 import play.mvc.*;
-
 import views.html.*;
+
+import java.util.List;
+
 import models.RMessage;
 
 public class Application extends Controller {
@@ -14,7 +16,8 @@ public class Application extends Controller {
     }
 
     public static Result wall() {
-        return ok(wall.render());
+        List<RMessage> messages = RMessage.getAll();
+        return ok(wall.render(messages));
     }
   
 }
