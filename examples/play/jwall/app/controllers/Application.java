@@ -57,7 +57,6 @@ public class Application extends Controller {
 
         JSONArray list = new JSONArray();
         for(RMessage i: messages){
-            System.out.println(i);
             JSONObject m = new JSONObject();
             m.put("id", i.getId());
             m.put("messages", i.getMessage());
