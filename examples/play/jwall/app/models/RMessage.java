@@ -69,6 +69,7 @@ public class RMessage {
     }
 
     public void save(){
+        System.out.print("saving");
         JedisPool pool = Utils.getRedisPool();
         Jedis r = pool.getResource();
         try {
