@@ -2,6 +2,28 @@
 @import utils.DateUtils
 
 @main(js(), nav("wall")){
+
+    <form method="post" action="@routes.Application.saveMessage().absoluteURL(request())">
+        <div class="row-fluid">
+            <div class="span9">
+                <textarea cols="40" id="id_message" name="message" placeholder="message" rows="4" style="width:100%"></textarea>
+            </div>
+            <div class="span3">
+                <div class="row-fluid">
+                    <div class="row-fluid"><div class="span12">
+                        <input id="id_by" name="by" placeholder="by" type="text">
+                    </div></div>
+                    <div class="row-fluid"><div class="span12">
+                        <input id="id_to" name="to" placeholder="to" type="text">
+                    </div></div>
+                    <div class="row-fluid"><div class="span12">
+                        <button type="submit" class="btn btn-primary">Post it!</button>
+                    </div></div>
+                </div>
+            </div>
+        </div>
+    </form>
+
     <hr>
     <div id="messages">
         @for(i <- messages) {
