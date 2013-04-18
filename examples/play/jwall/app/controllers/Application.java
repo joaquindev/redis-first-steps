@@ -4,11 +4,17 @@ import play.*;
 import play.mvc.*;
 
 import views.html.*;
+import models.RMessage;
 
 public class Application extends Controller {
   
     public static Result index() {
-        return ok(index.render("Your new application is ready."));
+        Long count = RMessage.count();
+        return ok(index.render(count));
+    }
+
+    public static Result wall() {
+        return ok(wall.render());
     }
   
 }
