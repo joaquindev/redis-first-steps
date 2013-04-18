@@ -12,7 +12,8 @@ object ApplicationBuild extends Build {
     javaCore,
     javaJdbc,
     javaEbean,
-    "redis.clients" % "jedis" % "2.1.0"
+    "redis.clients" % "jedis" % "2.1.0",
+    "com.googlecode.json-simple" % "json-simple" % "1.1.1"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
