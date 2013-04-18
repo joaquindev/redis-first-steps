@@ -152,8 +152,11 @@ public class RMessage {
                 else if (attr.equals("date"))
                     tempMessage.setDate(Long.valueOf(value));
             }
+
             // add the last one
-            results.add(tempMessage);
+            if (tempMessage != null)
+                results.add(tempMessage);
+
         } finally{
             pool.returnResource(r);
         }
