@@ -1,7 +1,8 @@
-@(message: String)
+@(count: Long)
 
-@main("Welcome to Play 2.1") {
-    
-    @play20.welcome(message, style = "Java")
-    
+@main(js(), nav("home")){
+    <div class="hero-unit">
+        <h2>Number of messages: @count</h2>
+        <p><a href="@routes.Application.wall().absoluteURL(request())" class="btn btn-primary btn-large">Go to wall!</a></p>
+    </div>
 }

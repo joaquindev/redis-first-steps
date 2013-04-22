@@ -1,0 +1,9 @@
+@(menuActive: String)
+
+@if(menuActive.equals("wall")){
+    <li><a href="@routes.Application.index().absoluteURL(request())">Home</a></li>
+    <li class="active"><a href="@routes.Application.wall().absoluteURL(request())">Wall</a></li>
+} else {
+    <li class="active"><a href="@routes.Application.index().absoluteURL(request())">Home</a></li>
+    <li><a href="@routes.Application.wall().absoluteURL(request())">Wall</a></li>
+}
