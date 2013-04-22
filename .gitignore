@@ -36,3 +36,10 @@ nosetests.xml
 
 #Redis
 *.rdb
+
+# Java
+*.class
+
+# Idea
+*.idea
+*.iml
